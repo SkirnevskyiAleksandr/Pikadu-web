@@ -5,6 +5,9 @@ body {
   font-family: sans-serif;
   background: #e5e5e5;
 }
+.hidden {
+  display: none;
+}
 .header {
   background: #fa8c16;
   padding-top: 16px;
@@ -84,7 +87,7 @@ body {
   color: #bfbfbf;
 }
 .menu-toggle {
-  display: none;
+  display: flex;
 }
 .content {
   max-width: 1200px;
@@ -173,6 +176,7 @@ body {
   height: 34px;
   margin-left: 9px;
   border-radius: 4px;
+  object-fit: cover;
 }
 .author-username {
   display: block;
@@ -190,6 +194,7 @@ body {
 .sidebar {
   width: 31%;
 }
+
 .login {
   background-color: #fafafa;
   border: 1px solid #e8e8e8;
@@ -197,10 +202,12 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+
 .login-form {
   display: flex;
   flex-direction: column;
 }
+
 .login-title {
   text-align: center;
   margin-bottom: 10px;
@@ -208,52 +215,54 @@ body {
   font-weight: 600;
   color: #595959;
 }
-.login-input {
-  display: block;
+
+.login-input, .edit-input, .modal-input, textarea {
   background-color: #fff;
   border: 1px solid #e8e8e8;
   padding: 5px 15px;
   margin-bottom: 15px;
 }
+
 .login-forget {
   text-align: center;
   font-size: 12px;
   text-decoration: none;
-  columns: #757575;
+  color: #595959;
   margin-bottom: 10px;
-  font-style: italic;
 }
-.login-signin {
+
+.button {
   background: #fa8c16;
   border: none;
   border-radius: 2px;
   text-transform: uppercase;
-  cursor: pointer;
   line-height: 32px;
-  font-size: 12px;
+  font-size: 13px;
+}
+
+.login-signin {
   margin-bottom: 15px;
 }
 
-.login-signin:hover {
+.button:hover {
   filter: opacity(80%);
 }
-.login-siginin:active {
+
+.button:active {
   filter: brightness(85%);
 }
-.login-signup {
-  text-align: center;
-  font-size: 14px;
-  text-decoration: none;
-  color: #fa8c16;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  line-height: 18px;
+
+.button.login-signup {
+  background: none;
+  color: black;
 }
+
 .user {
   background-color: #fafafa;
   border: 1px solid #e8e8e8;
   padding: 15px 25px;
 }
+
 .user-container {
   display: flex;
   align-items: center;
@@ -276,16 +285,14 @@ body {
   line-height: 24px;
   color: #595959;
 }
-.edit {
-  margin-right: 5px;
+.icon-edit, .icon-exit {
+  width: 20px;
+  height: 20px;
+  fill: #000;
 }
-.edit-title {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #595959;
-  text-transform: uppercase;
+.icon-edit {
+  margin-left: auto;
+  margin-right: 10px;
 }
 .edit-container {
   display: none;
@@ -293,40 +300,18 @@ body {
 .edit-container.visible {
   display: block;
 }
-.edit-label {
-  display: block;
-  margin-bottom: 5px;
-  text-align: center;
+.edit-user-form {
+  display: flex;
+  flex-flow: column nowrap;
 }
-.edit-input {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  padding: 5px 10px;
-}
-.edit-btn {
-  background: #fa8c16;
-  border: none;
-  border-radius: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  line-height: 32px;
-  font-size: 12px;
-  margin-bottom: 15px;
-  width: 100%;
-}
-.icon-edit {
-  width: 20px;
-  height: 20px;
-}
-.icon-exit {
-  width: 20px;
-  height: 20px;
-  fill: #000;
+.edit-user-form label {
+  margin-top: 5px;
+  margin-bottom: 2px;
+  font-size: 90%;
 }
 .sidebar-nav {
-  display: none;
   background-color: #fff;
+  display: none;
 }
 .sidebar-menu {
   margin: 0;
@@ -379,7 +364,7 @@ body {
   fill: #ffc53d;
 }
 .button-new-post {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -456,7 +441,8 @@ body {
   flex-direction: column;
 }
 .add-title,
-.add-text {
+.add-text,
+.add-tags {
   background: #ffffff;
   border: 1px solid #e8e8e8;
   padding: 23px 30px;
@@ -472,6 +458,56 @@ body {
 }
 .add-post .button-outline {
   margin-right: 1%;
+}
+.modal {
+  position: relative;
+  border-radius: 4px;
+  max-width: 960px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  z-index: 25;
+  flex-direction: column;
+  display: flex;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+}
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000063;
+  z-index: 20;
+}
+.modal .button {
+  display:inline-block;
+  align-self: center;
+}
+.modal textarea {
+  height: 200px;
+  max-height: 400px;
+}
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.close:hover {
+  opacity: 1;
 }
 @media (max-width: 990px) {
   .menu-toggle {
